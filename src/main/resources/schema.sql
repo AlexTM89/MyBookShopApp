@@ -1,9 +1,21 @@
-DROP TABLE IF EXISTS books;
+drop table if exists authors;
 
-CREATE TABLE  books(
-id INT AUTO_INCREMENT PRIMARY KEY,
-author VARCHAR(250) NOT NULL,
-title VARCHAR(250) NOT NULL,
-priceOld  VARCHAR(250) DEFAULT NULL,
-price VARCHAR(250) DEFAULT NULL
+create table authors
+(
+    id      int auto_increment primary key,
+    name    varchar(250 char) not null,
+    surname varchar(250 char) not null
 );
+
+drop table if exists books;
+
+create table books
+(
+    id        int auto_increment primary key,
+    author_id int not null,
+    title     varchar(250 char) not null,
+    price_old varchar(250 char) default null,
+    price     varchar(250 char) default  null
+);
+
+alter table books add foreign key (author_id) references authors(id);
