@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @SuppressWarnings("SameReturnValue")
 @Controller
 @RequestMapping("/bookshop")
@@ -26,6 +29,10 @@ public class BookShopController {
     @GetMapping("/main")
     public String mainPage(Model model) {
         model.addAttribute("bookData", bookService.getBookData());
+        model.addAttribute("searchPlaceholder", "New Search Placeholder");
+        model.addAttribute("searchbarPlaceholderTextPart0", new Date());
+        model.addAttribute("searchbarPlaceholderTextPart2", "CURRENT");
+        model.addAttribute("templateString", "searchbar.placeholder");
         return "index";
     }
 
