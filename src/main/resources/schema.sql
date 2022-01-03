@@ -2,9 +2,9 @@ drop table if exists authors;
 
 create table authors
 (
-    id      int auto_increment primary key,
-    name    varchar(250 char) not null,
-    surname varchar(250 char) not null
+    id         int auto_increment primary key,
+    first_name varchar(250 char) not null,
+    last_name  varchar(250 char) not null
 );
 
 drop table if exists books;

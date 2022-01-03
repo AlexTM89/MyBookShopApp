@@ -1,20 +1,22 @@
 package com.example.MyBookShopApp.controllers;
 
 import com.example.MyBookShopApp.data.AuthorService;
+import com.example.MyBookShopApp.data.Book;
 import com.example.MyBookShopApp.data.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("SameReturnValue")
 @Controller
-@RequestMapping("/bookshop")
 public class BookShopController {
 
     private final BookService bookService;
@@ -26,34 +28,13 @@ public class BookShopController {
         this.authorService = authorService;
     }
 
-    @GetMapping("/main")
+    @ModelAttribute("recommendedBooks")
+    public List<Book> recommendedBooks() {
+        return bookService.getBookData();
+    }
+
+    @GetMapping("/")
     public String mainPage(Model model) {
-        model.addAttribute("bookData", bookService.getBookData());
-        model.addAttribute("searchPlaceholder", "New Search Placeholder");
-        model.addAttribute("searchbarPlaceholderTextPart0", new Date());
-        model.addAttribute("searchbarPlaceholderTextPart2", "CURRENT");
-        model.addAttribute("templateString", "searchbar.placeholder");
         return "index";
-    }
-
-    @GetMapping("/genres")
-    public String genresPage(Model model) {
-        return "genres/index";
-    }
-
-
-    @GetMapping("/authors")
-    public String authorsPage(Model model) {
-        model.addAttribute("letters", authorService.getAuthorLetters());
-        model.addAttribute("authors", authorService.getAllAuthors());
-        return "authors/index";
-    }
-
-    @GetMapping("/authors/byletter/{letter}")
-    public String authorsPage(@PathVariable("letter") String letter,
-                              Model model) {
-        model.addAttribute("letters", authorService.getAuthorLetters());
-        model.addAttribute("authors", authorService.getAuthorByLetter(letter));
-        return "authors/index";
     }
 }
